@@ -13,4 +13,5 @@ public class Controller {
     public String home() {
         return "home";
     }
+
 }
