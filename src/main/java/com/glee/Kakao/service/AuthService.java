@@ -1,6 +1,7 @@
 package com.glee.Kakao.service;
 
 import com.glee.Kakao.HttpCallService;
+import com.glee.dto.KakaoCode;
 import com.sun.org.slf4j.internal.Logger;
 import com.sun.org.slf4j.internal.LoggerFactory;
 import org.json.JSONObject;
@@ -20,7 +21,7 @@ public class AuthService extends HttpCallService {
 
     public static String authToken;
 
-    public boolean getKakaoAuthToken(String code)  {
+    public boolean getKakaoAuthToken(String code, KakaoCode kakaoCode)  {
         HttpHeaders header = new HttpHeaders();
         String accessToken = "";
         String refrashToken = "";
@@ -31,7 +32,12 @@ public class AuthService extends HttpCallService {
         parameters.add("code", code);
         parameters.add("grant_type", "authorization_code");
         parameters.add("client_id", "faad0137b75bf60d63d3b9396e037fa5");
-        parameters.add("redirect_url", "http://localhost:8080/kakao");
+        if ("message".equals(kakaoCode)) {
+            parameters.add("redirect_url", "http://localhost:8080/kakao");
+        } else if (kakaoCode.equals(kakaoCode)) {
+            parameters.add("redirect_url", "http://localhost:8080/friend");
+        }
+
         parameters.add("client_secret", "dHjGJuz6XQm5BewYx66sU5CLzsPtwwxM");
 
         HttpEntity<?> requestEntity = httpClientEntity(header, parameters);

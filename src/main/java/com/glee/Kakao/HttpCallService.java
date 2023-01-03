@@ -4,6 +4,7 @@ import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
+import org.springframework.lang.Nullable;
 import org.springframework.web.client.RestTemplate;
 
 import java.net.URI;
@@ -37,9 +38,13 @@ public class HttpCallService {
      * @ param  HttpEntity<?> entity 요청 EntityClient 객체 정보
      * @ return HttpEntity 생성된 HttpClient객체 정보 반환
      */
-    public ResponseEntity<String> httpRequest(String url, HttpMethod method, HttpEntity<?> entity){
+    public ResponseEntity<String> httpRequest(String url, HttpMethod method, @Nullable HttpEntity<?> entity){
         RestTemplate restTemplate = new RestTemplate();
         return restTemplate.exchange(url, method, entity,String.class);
+    }
+
+    public ResponseEntity<String> httpRequest(String url,HttpMethod method) {
+        return httpRequest(url , method,null);
     }
 
     /**
